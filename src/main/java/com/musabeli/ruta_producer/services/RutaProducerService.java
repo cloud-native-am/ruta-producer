@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 @Slf4j
 public class RutaProducerService {
@@ -21,11 +23,17 @@ public class RutaProducerService {
     private String routingKey;
 
     public void sendRuta(RutaDTO ruta){
-        log.info("Enviando ruta a RabbitMQ - Patente: {}, Ruta Inicio: {}, Ruta Fin: {}, Fecha: {}",
+
+        // setear fecha desde el servidor
+        ruta.setFechaActualizacion(LocalDateTime.now());
+
+        log.info("Enviando ruta a RabbitMQ - Patente: {}, Ruta Inicio: {}, Ruta Fin: {}, Hora Salida: {}, Hora Llegada: {}, Fecha: {}",
                 ruta.getPatente(),
                 ruta.getRutaInicio(),
                 ruta.getRutaFin(),
-                ruta.getFecha());
+                ruta.getHoraSalida(),
+                ruta.getHoraLlegada(),
+                ruta.getFechaActualizacion());
 
         rabbitTemplate.convertAndSend(exchangeName, routingKey, ruta);
 

@@ -13,5 +13,7 @@ public class RutaDTO {
     private String patente;
     private String rutaInicio;
     private String rutaFin;
-    private LocalDateTime fecha;
+    private LocalDateTime horaLlegada;
+    private LocalDateTime horaSalida;
+    private LocalDateTime fechaActualizacion;
 }
