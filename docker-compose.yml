@@ -1,0 +1,13 @@
+services:
+  ruta-producer:
+    build: .
+    container_name: ruta-producer
+    ports:
+      - "8083:8083"
+    networks:
+      - app-network
+    restart: on-failure
+
+networks:
+  app-network:
+    external: true
